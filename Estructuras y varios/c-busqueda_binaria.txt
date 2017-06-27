@@ -1,0 +1,125 @@
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct
+{
+    char *nombre;
+    char *ap;
+    char *am;
+    int boleta;
+    float promedio;
+}Alumno;
+Alumno A[6];
+void ordenar();
+int busquedaBinaria(const int arreglo[], int tamano, int clave);
+int main()
+{
+    int bol=0, f=0,B[6],numarr, c=7,op;
+	system("cls");
+    insertar_Datos();
+    ordenar();
+    while(1)
+    {
+    printf("\nIndique el numero de boleta a buscar:\n Ejemplo: 201645XXXX\n");
+	scanf("%d",&bol);
+    printf("\n\n");
+
+    for(f=1;f<6;f++)
+        B[f]=A[f].boleta;
+    numarr=busquedaBinaria(B,c ,bol);
+    if(numarr!=-1)
+       {
+
+        printf("Boleta: %d\n",A[numarr].boleta);
+        printf("Nombre: %s %s %s\n",A[numarr].ap,A[numarr].am,A[numarr].nombre);
+        printf("Promedio: %f\n",A[numarr].promedio);
+        printf("\n\n");
+       }
+    else
+        printf("\nEsta boleta no existe\n\n");
+        system("pause");
+        system("cls");
+        printf("\n¿Desea buscar otra boleta?\n1.si\n2.no\n");
+        scanf("%d",&op);
+        if(op==2)
+            return 0;
+            system("cls");
+    }
+    system("pause");
+}
+void insertar_Datos(){
+        A[1].nombre="Carlos";
+    	A[1].ap="Coral";
+    	A[1].am="Cuevas";
+    	A[1].boleta=2016456789;
+    	A[1].promedio=8.5;
+    	A[2].nombre="Daniel";
+    	A[2].ap="Martinez";
+    	A[2].am="Ramirez";
+    	A[2].boleta=2016454788;
+    	A[2].promedio=8.6;
+    	A[3].nombre="Carla";
+    	A[3].ap="Lopez";
+    	A[3].am="Carrillo";
+    	A[3].boleta=2016456490;
+    	A[3].promedio=8.3;
+    	A[4].nombre="Lucia";
+    	A[4].ap="Fernandez";
+    	A[4].am="Garcia";
+    	A[4].boleta=2016456474;
+    	A[4].promedio=8.8;
+    	A[5].nombre="Marcos";
+    	A[5].ap="Sanchez";
+    	A[5].am="Martinez";
+    	A[5].boleta=201645638;
+    	A[5].promedio=8.8;
+        }
+
+int busquedaBinaria(const int arreglo[], int tamano, int clave)
+{
+  int Iarriba = tamano-1;
+  int Iabajo = 0;
+  int Icentro;
+  while (Iabajo <= Iarriba)
+    {
+      Icentro = (Iarriba + Iabajo)/2;
+      if (arreglo[Icentro] == clave)
+   return Icentro;
+    else
+ if (clave < arreglo[Icentro])
+   Iarriba=Icentro-1;
+ else
+   Iabajo=Icentro+1;
+    }
+  return -1;
+}
+
+void ordenar()
+{
+    int i,pasada ;
+    Alumno aux;
+
+for (pasada=1; pasada<=6-1; pasada++)
+for(i=0; i<=6-2; i++)
+if (A[i].boleta>A[i+1].boleta)
+{
+
+aux.am=A[i].am;
+aux.ap=A[i].ap;
+aux.boleta=A[i].boleta;
+aux.nombre=A[i].nombre;
+aux.promedio=A[i].promedio;
+A[i]=A[i+1];
+
+A[i].am=A[i+1].am;
+A[i].ap=A[i+1].ap;
+A[i].boleta=A[i+1].boleta;
+A[i].nombre=A[i+1].nombre;
+A[i].promedio=A[i+1].promedio;
+
+A[i+1].am=aux.am;
+A[i+1].ap=aux.ap;
+A[i+1].boleta=aux.boleta;
+A[i+1].nombre=aux.nombre;
+A[i+1].promedio=aux.promedio;
+}
+}
